@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Designing Intelligence — Personal Brand</title>
+  <meta name="description" content="A premium one-page personal brand website for a UC Berkeley student exploring AI, cognition, data science, and creative technology." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#2563eb',
+            brandPurple: '#7c3aed',
+            brandMint: '#10b981',
+          },
+          boxShadow: {
+            soft: '0 20px 60px rgba(37, 99, 235, 0.10)',
+            glow: '0 0 0 1px rgba(37, 99, 235, 0.18), 0 12px 40px rgba(124, 58, 237, 0.12)',
+          },
+          keyframes: {
+            floaty: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '0.35' },
+              '50%': { opacity: '0.75' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '0% 50%' },
+              '100%': { backgroundPosition: '200% 50%' },
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(22px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            floaty: 'floaty 7s ease-in-out infinite',
+            pulseSoft: 'pulseSoft 5s ease-in-out infinite',
+            shimmer: 'shimmer 10s linear infinite',
+            fadeUp: 'fadeUp 0.9s ease forwards',
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Google Fonts Connection -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-36jt1YdK9Y/0OJo0RZdj2xrF7oYpmNTuLQ0l8Vf/7kL8zS30p4gpK4KjIuFqZ9TzQf28Rja9Dapaz5Y4tyxj8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.08), transparent 24%),
+        radial-gradient(circle at 85% 10%, rgba(124, 58, 237, 0.08), transparent 22%),
+        radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.08), transparent 20%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 40%, #ffffff 100%);
+      overflow-x: hidden;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.03em;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.05);
+    }
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(148, 163, 184, 0.26);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+    }
+    .gradient-border {
+      position: relative;
+      isolation: isolate;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(37,99,235,0.85), rgba(124,58,237,0.75), rgba(16,185,129,0.65));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .soft-grid {
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 72%);
+    }
+    .line-flow {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.18) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 11s linear infinite;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 1.5px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+    .card-hover {
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 50px rgba(37, 99, 235, 0.12);
+      border-color: rgba(37, 99, 235, 0.25);
+    }
+    .btn-premium {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+    .btn-premium:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(16,185,129,0.28), 0 16px 38px rgba(16,185,129,0.14), 0 0 28px rgba(16,185,129,0.12);
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.05em;
+      background: linear-gradient(180deg, #2563eb, #7c3aed);
+      vertical-align: -0.12em;
+      margin-left: 4px;
+      animation: blink 0.9s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+    .number-pill {
+      background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10));
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+    #particlesCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      z-index: -10;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brandBlue/20 selection:text-slate-900">
+
+  <!-- Background Canvas & Dynamic Grid Layers -->
+  <div class="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
+    <div class="absolute inset-0 soft-grid opacity-60"></div>
+    <div class="line-flow"></div>
+    <div class="absolute -top-32 -left-24 h-80 w-80 rounded-full bg-brandBlue/10 blur-3xl animate-floaty"></div>
+    <div class="absolute top-28 right-[-4rem] h-96 w-96 rounded-full bg-brandPurple/10 blur-3xl animate-floaty" style="animation-delay: -2.5s;"></div>
+    <div class="absolute bottom-[-5rem] left-1/3 h-96 w-96 rounded-full bg-brandMint/10 blur-3xl animate-floaty" style="animation-delay: -4s;"></div>
+  </div>
+  
+  <!-- Interactive Particles Canvas (Takes mouse interactions too) -->
+  <canvas id="particlesCanvas"></canvas>
+
+  <!-- Custom Toast Dialog Container (Avoids ugly alerts) -->
+  <div id="toastContainer" class="fixed top-6 right-6 z-[100] flex flex-col gap-3 max-w-sm pointer-events-none"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#home" class="group flex items-center gap-3">
+        <div class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-brandBlue to-brandPurple text-white shadow-soft transition-all duration-300 group-hover:rotate-12">
+          <span class="text-sm font-bold">AL</span>
+        </div>
+        <div>
+          <div class="text-sm font-semibold tracking-[0.24em] text-slate-500 uppercase">Ashley Liu</div>
+          <div class="text-xs text-slate-400">AI • Cognition • Data Science</div>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden items-center gap-8 lg:flex">
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#home">首頁</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#about">關於我</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#playground">實驗展示區</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#services">核心能力</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#projects">精選作品</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#blog">專欄筆記</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#resume">學術履歷</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#contact">聯絡合作</a>
+      </nav>
+
+      <!-- Hamburger toggle -->
+      <button id="menuBtn" class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white/80 text-slate-700 shadow-sm transition hover:bg-slate-50">
+        <span class="sr-only">切換選單</span>
+        <svg id="menuIcon" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path id="hamburgerPath" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Grid -->
+    <div id="mobileMenu" class="hidden border-t border-slate-200/70 bg-white/95 lg:hidden">
+      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div class="grid gap-3 text-sm font-medium text-slate-700">
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#home">首頁</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#about">關於我</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#playground">實驗展示區</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#services">核心能力</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#projects">精選作品</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#blog">專欄筆記</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#resume">學術履歷</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100/80 transition" href="#contact">聯絡合作</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative">
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
+        <div class="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+          
+          <!-- Left Content -->
+          <div class="reveal">
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-brandBlue/15 bg-white/80 px-4 py-2 text-xs font-semibold tracking-[0.28em] text-slate-500 uppercase shadow-sm">
+              <span class="h-2 w-2 rounded-full bg-brandMint shadow-[0_0_18px_rgba(16,185,129,0.6)] animate-ping"></span>
+              UC Berkeley Student Explorer
+            </div>
+
+            <div class="space-y-6">
+              <h1 class="hero-title text-4xl font-bold leading-[1.1] text-slate-950 sm:text-5xl lg:text-6xl xl:text-7xl">
+                <span id="typedHeadline" class="bg-gradient-to-r from-brandBlue via-brandPurple to-brandPurple bg-clip-text text-transparent">Designing Intelligence</span><span class="typing-cursor"></span>
+              </h1>
+              <p class="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl font-medium">
+                當數據交匯於人本設計，即成直覺。當認知研究對話人工智慧，便是未來。
+              </p>
+              <p class="max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">
+                我是一位在 UC Berkeley 探索「人類心智」與「機器智能」的學生，專注於 Cognitive Science 與 Data Science。透過清晰的結構化思考與互動原型，致力於將抽象理論與冷硬數據轉譯為直覺優雅的使用者體驗。
+              </p>
+            </div>
+
+            <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a href="#contact" class="btn-premium inline-flex items-center justify-center gap-3 rounded-full border border-brandBlue/20 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-soft">
+                <span class="inline-flex h-2.5 w-2.5 rounded-full bg-brandMint"></span>
+                聯絡狀態：開放合作中
+              </a>
+              <a href="#projects" class="btn-premium inline-flex items-center justify-center rounded-full border border-slate-200 bg-gradient-to-r from-white to-slate-50 px-6 py-3.5 text-sm font-semibold text-brandBlue shadow-sm">
+                探索精選作品
+                <svg class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div class="mt-12 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4">
+              <div class="glass rounded-2xl p-4 transition-all duration-300 hover:scale-[1.03]">
+                <div class="text-2xl font-bold text-brandBlue">CogSci</div>
+                <div class="mt-1 text-xs text-slate-500">人類認知科學</div>
+              </div>
+              <div class="glass rounded-2xl p-4 transition-all duration-300 hover:scale-[1.03]">
+                <div class="text-2xl font-bold text-brandPurple">Data Sci</div>
+                <div class="mt-1 text-xs text-slate-500">數據工程分析</div>
+              </div>
+              <div class="glass rounded-2xl p-4 transition-all duration-300 hover:scale-[1.03]">
+                <div class="text-2xl font-bold text-brandMint">HCI</div>
+                <div class="mt-1 text-xs text-slate-500">人機互動介面</div>
+              </div>
+              <div class="glass rounded-2xl p-4 transition-all duration-300 hover:scale-[1.03]">
+                <div class="text-2xl font-bold text-slate-900">AI Lab</div>
+                <div class="mt-1 text-xs text-slate-500">前沿生成應用</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Floating Card Presentation -->
+          <div class="reveal relative">
+            <div class="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-brandBlue/10 via-white to-brandPurple/10 blur-2xl"></div>
+            <div class="relative glass-strong gradient-border rounded-[2.5rem] p-6 sm:p-8">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold tracking-[0.24em] text-slate-400 uppercase">Live Identity Card</div>
+                  <div class="mt-1 text-lg font-semibold text-slate-950">Ashley's Workspace</div>
+                </div>
+                <div class="rounded-full border border-brandMint/20 bg-brandMint/10 px-3 py-1 text-xs font-semibold text-emerald-700 animate-pulse">
+                  動態連線中
+                </div>
+              </div>
+
+              <!-- Content Panel -->
+              <div class="mt-6 overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-gradient-to-br from-white to-slate-50 p-5">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <span>Signal / Insight / Design</span>
+                  <span>UC Berkeley</span>
+                </div>
+
+                <div class="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-md">
+                    <div class="text-xs font-semibold tracking-[0.18em] text-brandBlue uppercase">核心聚焦</div>
+                    <div class="mt-2 text-sm leading-6 text-slate-600">把抽象的數據流與認知模型，轉化為親切易懂、兼顧視覺美感的數位交互體驗。</div>
+                  </div>
+                  <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-md">
+                    <div class="text-xs font-semibold tracking-[0.18em] text-brandPurple uppercase">學習進路</div>
+                    <div class="mt-2 text-sm leading-6 text-slate-600">以學生最純粹的「探索好奇心」出發，結合嚴謹的邏輯論證與互動的原型開發。</div>
+                  </div>
+                </div>
+
+                <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+                  <div class="mb-3 flex items-center justify-between text-xs text-slate-400">
+                    <span>學術能力光譜 (Dynamic Skill Flow)</span>
+                    <span id="flowRate">89%</span>
+                  </div>
+                  <div class="space-y-3">
+                    <div class="h-2 rounded-full bg-slate-100">
+                      <div class="h-2 w-[85%] rounded-full bg-gradient-to-r from-brandBlue via-brandPurple to-brandMint transition-all duration-1000"></div>
+                    </div>
+                    <div class="h-2 rounded-full bg-slate-100">
+                      <div class="h-2 w-[72%] rounded-full bg-gradient-to-r from-brandBlue via-brandPurple to-brandMint transition-all duration-1000"></div>
+                    </div>
+                    <div class="h-2 rounded-full bg-slate-100">
+                      <div class="h-2 w-[90%] rounded-full bg-gradient-to-r from-brandBlue via-brandPurple to-brandMint transition-all duration-1000"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-4 grid-cols-3">
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200 text-center">
+                  <div class="text-xs text-slate-400">當前身份</div>
+                  <div class="mt-1 font-semibold text-slate-900 text-sm">學術探索者</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200 text-center">
+                  <div class="text-xs text-slate-400">視覺風格</div>
+                  <div class="mt-1 font-semibold text-slate-900 text-sm">精緻數位主義</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200 text-center">
+                  <div class="text-xs text-slate-400">心智追求</div>
+                  <div class="mt-1 font-semibold text-slate-900 text-sm">極簡與精確</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-12 lg:grid-cols-[0.85fr_1.15fr] items-center">
+          <div class="space-y-4">
+            <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">About Me</div>
+            <h2 class="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">在 Berkeley 的認知與數據實踐</h2>
+            <p class="text-slate-500 leading-7">一條橫跨人類思維 (Wetware) 與機器演算 (Silicon) 的跨界融合之路。</p>
+            
+            <div class="border-l-4 border-brandBlue/30 pl-4 py-1 italic text-sm text-slate-500">
+              “How do minds think, and how do bytes speak?” 
+            </div>
+          </div>
+          <div class="glass-strong rounded-[2rem] p-7 sm:p-9 space-y-6">
+            <p class="text-base leading-8 text-slate-600 sm:text-lg">
+              我目前就讀於 **UC Berkeley**，雙主修 **Cognitive Science (認知科學)** 與 **Data Science (數據科學)**。對我而言，這兩門學問並非平行線，而是彼此對稱的透鏡：認知科學幫助我們探究「大腦神經網絡與心智模型是如何構成的」，而數據科學則教導我們「如何從紛亂的現實信號中凝練出真理與邏輯」。
+            </p>
+            <p class="text-base leading-8 text-slate-600 sm:text-lg">
+              在 Berkeley 的學術洗禮中，從 Data Structures、Probability Theory，一路探索到 Cognitive Modeling。我特別熱衷於將這些硬核的背景轉化為直覺的實作原型——設計出懂人性的 AI 代理人、能夠自行訴說故事的數據儀表板，以及融合創意科技的網頁微型實驗。
+            </p>
+            <p class="text-base leading-8 text-slate-600 sm:text-lg">
+              這個空間不僅僅是一份靜態的作品清單，更是我與世界展開對話、持續打磨技術、探索人機共生邊界的沙盒。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Lab Playground Section -->
+    <section id="playground" class="py-12 sm:py-16 lg:py-24 bg-slate-50/50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-12 text-center">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandPurple uppercase">Berkeley Cognition & Data Lab</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">互動實驗演示區</h2>
+          <p class="mt-3 max-w-2xl mx-auto text-slate-500 leading-7">點選下方分頁，動態測試您的認知心理反應，或親自觸發一個微型類神經網路訊號傳導！</p>
+        </div>
+
+        <div class="reveal glass-strong rounded-[2rem] p-6 sm:p-8 gradient-border">
+          <!-- Playground Tabs -->
+          <div class="flex justify-center border-b border-slate-200/80 mb-8 pb-4">
+            <button id="tabStroopBtn" class="px-6 py-2.5 font-semibold text-sm rounded-xl text-brandPurple bg-brandPurple/10 transition-all duration-300 mr-4 focus:outline-none">
+              🧠 認知干擾 (Stroop) 測試
+            </button>
+            <button id="tabNNBtn" class="px-6 py-2.5 font-semibold text-sm rounded-xl text-slate-500 hover:text-slate-950 hover:bg-slate-100 transition-all duration-300 focus:outline-none">
+              🔌 類神經網絡訊號模擬
+            </button>
+          </div>
+
+          <!-- Tab Content 1: Stroop Test -->
+          <div id="stroopPanel" class="space-y-6 block">
+            <div class="grid lg:grid-cols-[1fr_1.1fr] gap-8">
+              <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-900">學術原理解析：認知干擾效應</h3>
+                <p class="text-sm leading-6 text-slate-600">
+                  在認知心理學中，當單字字意（例：紅）與字體顏色（例：綠）不一致時，大腦需要花費更多時間抑制自動化的文字閱讀，而改為辨識視覺顏色。這稱為 **Stroop Effect**。
+                </p>
+                <div class="bg-white/80 p-4 rounded-xl border border-slate-150">
+                  <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">您的實驗記錄：</div>
+                  <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="p-3 bg-brandBlue/5 rounded-lg border border-brandBlue/10">
+                      <div class="text-xs text-slate-400">平均反應時間</div>
+                      <div id="avgReactionTime" class="text-xl font-bold text-brandBlue mt-1">-- ms</div>
+                    </div>
+                    <div class="p-3 bg-brandMint/5 rounded-lg border border-brandMint/10">
+                      <div class="text-xs text-slate-400">總辨識題數</div>
+                      <div id="stroopCount" class="text-xl font-bold text-brandMint mt-1">0 / 5</div>
+                    </div>
+                  </div>
+                  <button id="resetStroopBtn" class="w-full mt-4 text-xs font-semibold text-slate-500 hover:text-slate-800 transition py-1 rounded border border-slate-200 hover:bg-slate-50">重置實驗數據</button>
+                </div>
+              </div>
+
+              <!-- Interactive Game Area -->
+              <div class="flex flex-col items-center justify-center p-6 bg-slate-900/5 rounded-2xl border border-slate-200 min-h-[300px]">
+                <div id="stroopGameIntro" class="text-center space-y-4">
+                  <div class="text-4xl">🧠</div>
+                  <h4 class="font-bold text-slate-800">開始測試您的注意力屏障</h4>
+                  <p class="text-xs text-slate-500 max-w-sm">請依照出現字體的「字體物理顏色」點擊下方對應按鈕，千萬不要被字面意思給騙了！一共進行 5 次考驗。</p>
+                  <button id="startStroopBtn" class="px-5 py-2.5 bg-brandPurple text-white text-xs font-semibold rounded-xl hover:bg-brandPurple/90 transition shadow-sm">啟動測試</button>
+                </div>
+
+                <div id="stroopGameActive" class="hidden w-full text-center space-y-8">
+                  <div class="flex items-center justify-between text-xs text-slate-400 px-4">
+                    <span>考驗階段: <b id="stroopRoundLabel">1/5</b></span>
+                    <span>計時器: <b id="stroopTimer">0.0s</b></span>
+                  </div>
+                  <!-- The Color Word Word -->
+                  <div id="stroopTargetWord" class="text-4xl sm:text-5xl font-extrabold tracking-wide py-6 select-none">
+                    藍
+                  </div>
+                  <!-- Answer Choices -->
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-md mx-auto w-full">
+                    <button data-color="red" class="stroopChoiceBtn py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-semibold text-sm rounded-xl transition shadow-sm active:scale-95">紅色</button>
+                    <button data-color="blue" class="stroopChoiceBtn py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-semibold text-sm rounded-xl transition shadow-sm active:scale-95">藍色</button>
+                    <button data-color="green" class="stroopChoiceBtn py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-semibold text-sm rounded-xl transition shadow-sm active:scale-95">綠色</button>
+                    <button data-color="purple" class="stroopChoiceBtn py-3 bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-semibold text-sm rounded-xl transition shadow-sm active:scale-95">紫色</button>
+                  </div>
+                </div>
+
+                <!-- Finished Stroop Screen -->
+                <div id="stroopGameFinished" class="hidden text-center space-y-4">
+                  <div class="text-4xl">🎉</div>
+                  <h4 class="font-bold text-slate-800">測試完成！數據已記錄</h4>
+                  <p class="text-sm text-slate-600" id="stroopResultSummary"></p>
+                  <div class="h-3 w-full bg-slate-200 rounded-full max-w-sm mx-auto overflow-hidden">
+                    <div id="stroopPerformanceBar" class="h-full bg-gradient-to-r from-brandBlue to-brandPurple transition-all duration-1000" style="width: 0%"></div>
+                  </div>
+                  <button id="restartStroopBtn" class="px-4 py-2 text-xs bg-slate-800 text-white rounded-lg hover:bg-slate-950 transition">重新測試</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content 2: Neural Net Signal Sandbox -->
+          <div id="nnPanel" class="space-y-6 hidden">
+            <div class="grid lg:grid-cols-[1fr_1.1fr] gap-8">
+              <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-900">Berkeley AI 原型：前饋傳導網絡</h3>
+                <p class="text-sm leading-6 text-slate-600">
+                  這個微型類神經網絡動態模型，展示了輸入層的原始數據（例如：使用者體驗意圖與冷硬原始數據），如何在通過帶有權重的隱藏層計算後，精準轉化為預測與人性化輸出的過程。
+                </p>
+                <div class="bg-white/80 p-4 rounded-xl border border-slate-150 space-y-3 text-xs text-slate-500">
+                  <div>
+                    <span class="font-semibold text-brandBlue">輸入層 (Inputs)</span>：人類心理目標、大量現實指標。
+                  </div>
+                  <div>
+                    <span class="font-semibold text-brandPurple">隱藏層 (Hidden weights)</span>：複雜的神經元矩陣，動態融合兩者。
+                  </div>
+                  <div>
+                    <span class="font-semibold text-brandMint">輸出層 (Target Outputs)</span>：完美的「人本設計」或「智能數據解譯」。
+                  </div>
+                </div>
+                <div class="flex gap-3">
+                  <button id="triggerSignalBtn1" class="flex-1 py-2.5 bg-brandBlue text-white text-xs font-semibold rounded-xl hover:bg-brandBlue/90 transition shadow-sm active:scale-[0.98]">
+                    發送【人類意圖】信號
+                  </button>
+                  <button id="triggerSignalBtn2" class="flex-1 py-2.5 bg-brandPurple text-white text-xs font-semibold rounded-xl hover:bg-brandPurple/90 transition shadow-sm active:scale-[0.98]">
+                    發送【數據洪流】信號
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive NN Visual representation -->
+              <div class="relative bg-slate-900 rounded-2xl p-6 overflow-hidden min-h-[300px] flex items-center justify-center">
+                <!-- Connective Lines Canvas for NN nodes -->
+                <svg id="nnGraph" class="absolute inset-0 w-full h-full pointer-events-none">
+                  <!-- Connections will be rendered here dynamically or statically -->
+                  <path id="path_in1_h1" d="" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" />
+                  <path id="path_in1_h2" d="" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" />
+                  <path id="path_in2_h1" d="" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" />
+                  <path id="path_in2_h2" d="" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" />
+                  <path id="path_h1_out1" d="" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" />
+                  <path id="path_h2_out1" d="" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" />
+                </svg>
+
+                <div class="relative w-full flex justify-between items-center px-4 z-10">
+                  <!-- Input Nodes -->
+                  <div class="flex flex-col gap-12">
+                    <div id="node_in1" class="w-12 h-12 rounded-full bg-brandBlue flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(37,99,235,0.6)] transition-all duration-300">IN 1</div>
+                    <div id="node_in2" class="w-12 h-12 rounded-full bg-brandPurple flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(124,58,237,0.6)] transition-all duration-300">IN 2</div>
+                  </div>
+
+                  <!-- Hidden Layers -->
+                  <div class="flex flex-col gap-12">
+                    <div id="node_h1" class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 text-xs font-bold transition-all duration-300">W 1</div>
+                    <div id="node_h2" class="w-12 h-12 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 text-xs font-bold transition-all duration-300">W 2</div>
+                  </div>
+
+                  <!-- Output Layer -->
+                  <div class="flex flex-col">
+                    <div id="node_out1" class="w-16 h-16 rounded-full bg-slate-800 border-2 border-slate-700 flex flex-col items-center justify-center text-white text-xs font-bold transition-all duration-300 text-center px-1">
+                      <span class="scale-[0.8]">OUT</span>
+                      <span id="nnOutputText" class="text-[9px] text-brandMint tracking-tighter">STANDBY</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Signal pulses floating in animation layers -->
+                <div id="pulseIn1" class="hidden absolute w-3 h-3 bg-brandBlue rounded-full shadow-[0_0_10px_#2563eb] z-20 pointer-events-none"></div>
+                <div id="pulseIn2" class="hidden absolute w-3 h-3 bg-brandPurple rounded-full shadow-[0_0_10px_#7c3aed] z-20 pointer-events-none"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Services</div>
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">核心學術與創作能力</h2>
+          </div>
+          <p class="max-w-xl text-sm leading-7 text-slate-500">
+            不追求商業包裝，而是以「硬核實作、可視呈現、認知人本」為研究與落地應用的基石。
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandPurple/15 text-brandBlue font-bold">AI</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">AI 代理人與概念展示</h3>
+            <p class="mt-3 leading-7 text-slate-600">利用大語言模型框架（LLM）打造客製化的智能助理代理，並專注於探索人因對話在學習與研究上的應用展示。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandMint/15 text-brandPurple font-bold">CX</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">對話流程與人機交互 (HCI)</h3>
+            <p class="mt-3 leading-7 text-slate-600">基於人類認知與短期記憶廣度，規劃具備高容錯、情感回饋、與邏輯通順之聊天互動介面原型。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandPurple/15 to-brandMint/15 text-brandMint font-bold">Data</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">數據探勘與故事視覺化</h3>
+            <p class="mt-3 leading-7 text-slate-600">運用 Python（Pandas、Matplotlib、Seaborn）整理零散訊號，輸出簡潔有力的動態統計數據與互動資訊儀表板。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandPurple/15 text-brandBlue font-bold">Art</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">生成式 AI 輔助協同設計</h3>
+            <p class="mt-3 leading-7 text-slate-600">深度串接生成式影像工具與自動化腳本，在排版、多媒體素材、以及前端動態美學上達成高效率與高品質產出。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandMint/15 to-brandBlue/15 text-brandMint font-bold">Lab</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">學術原型與實作沙盒</h3>
+            <p class="mt-3 leading-7 text-slate-600">專為課堂報告、個人獨立研究項目構建具有高展示度的網頁原型，讓抽象算法成果更容易獲得直覺共鳴。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandPurple/15 to-brandBlue/15 text-brandPurple font-bold">Web</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">現代感響應式品牌首頁</h3>
+            <p class="mt-3 leading-7 text-slate-600">以簡約現代的「微光磨砂玻璃 (Glassmorphism)」美學，為學術工作者與創作者量身打造優雅流暢的數位展示名片。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Projects / Portfolio</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">精選研究與作品集</h2>
+          <p class="mt-3 max-w-2xl text-slate-500 leading-7">用 3 個核心學術專案與跨界案例，串聯認知與數據的落地展現。</p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-12">
+          <!-- Main Project Card -->
+          <article class="reveal lg:col-span-7 card-hover glass-strong rounded-[2rem] p-7 sm:p-8">
+            <div class="flex items-center justify-between">
+              <span class="rounded-full bg-brandBlue/10 px-3 py-1 text-xs font-semibold text-brandBlue">01</span>
+              <span class="text-xs font-medium text-slate-400">學術核心案例</span>
+            </div>
+            <h3 class="mt-5 text-2xl font-semibold text-slate-950">AI 與人因認知整合控制介面</h3>
+            <p class="mt-4 max-w-2xl leading-7 text-slate-600">
+              該專案結合大語言模型思維與大腦注意力決策機制，在極簡、低心理負載的介面框架中，建立更自然的資訊篩選機制，有效避免認知超載 (Cognitive Overload)。
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
+              <span class="rounded-full border border-slate-200 bg-white px-3 py-2">UI 系統設計</span>
+              <span class="rounded-full border border-slate-200 bg-white px-3 py-2">高保真互動原型</span>
+              <span class="rounded-full border border-slate-200 bg-white px-3 py-2">注意力流分析</span>
+            </div>
+            <div class="mt-7 rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5">
+              <div class="grid gap-4 md:grid-cols-3">
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-sm font-semibold text-slate-900">核心痛點</div>
+                  <div class="mt-2 text-sm leading-6 text-slate-500">現代 AI 輸出的資訊量龐雜、雜訊過高。</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-sm font-semibold text-slate-900">解決方案</div>
+                  <div class="mt-2 text-sm leading-6 text-slate-500">透過分級漸進揭露資訊與焦點指引。</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-sm font-semibold text-slate-900">實證成效</div>
+                  <div class="mt-2 text-sm leading-6 text-slate-500">使用者資訊過濾決策時間大幅縮短 34%。</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Right Sidebar Projects -->
+          <div class="reveal lg:col-span-5 space-y-6">
+            <article class="card-hover glass rounded-[2rem] p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-brandMint/10 px-3 py-1 text-xs font-semibold text-emerald-700">02</span>
+                <span class="text-xs text-slate-400">數據故事儀表板</span>
+              </div>
+              <h3 class="mt-5 text-xl font-semibold text-slate-950">Data Story Dashboard</h3>
+              <p class="mt-3 leading-7 text-slate-600">將 UC Berkeley 地區大眾交通流向的混亂信號，以極具藝術感且流暢的互動網頁圖表，向校方高層呈現。讓決策者在秒級內精確抓取交通節奏。 </p>
+            </article>
+
+            <article class="card-hover glass rounded-[2rem] p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-brandPurple/10 px-3 py-1 text-xs font-semibold text-brandPurple">03</span>
+                <span class="text-xs text-slate-400">創意微型網頁</span>
+              </div>
+              <h3 class="mt-5 text-xl font-semibold text-slate-950">個人學術品牌實驗站</h3>
+              <p class="mt-3 leading-7 text-slate-600">融合微觀物理學與人因工程的動態響應微型作品，展示兼顧代碼輕量化與驚艷視覺交互的可能。</p>
+            </article>
+
+            <article class="card-hover glass rounded-[2rem] p-6 border border-dashed border-slate-300/80 bg-slate-50/20">
+              <div class="text-xs font-semibold tracking-[0.22em] text-slate-400 uppercase">未來孵化插槽</div>
+              <h3 class="mt-5 text-xl font-semibold text-slate-950">下一項震撼課堂專案</h3>
+              <p class="mt-3 leading-7 text-slate-600">預留給下一季 Berkeley Cognitive Computing Lab 與大數據探勘課程的精彩研究成果展示。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Photo Showcase -->
+    <section id="portfolio" class="py-12 sm:py-16 lg:py-24 bg-slate-50/40">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10 text-center">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandMint uppercase">Portfolio Showcase</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">國科會展示照片</h2>
+          <p class="mt-3 max-w-2xl mx-auto text-slate-500 leading-7">這張照片呈現國科會展場中的專案實際呈現與舞台互動氛圍。</p>
+        </div>
+
+        <div class="reveal glass-strong rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-soft">
+          <div class="grid gap-6 lg:grid-cols-[1.3fr_0.9fr] items-center">
+            <div class="relative overflow-hidden">
+              <img src="國科會-expo-stage-01.jpg" alt="國科會展場實況照片" class="h-full w-full object-cover" />
+            </div>
+            <div class="space-y-6 p-8 sm:p-10">
+              <div class="inline-flex rounded-full bg-brandPurple/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-brandPurple">國科會作品集</div>
+              <h3 class="text-2xl font-semibold text-slate-950">國科會專案現場展示</h3>
+              <p class="leading-7 text-slate-600">此作品展示了我在國科會專案中的實際呈現效果：展場舞台佈置、現場互動元素與專案視覺風格同時融合，讓參與者更直觀理解技術價值與設計想像。</p>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div class="rounded-3xl bg-slate-50 p-4 border border-slate-200">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">展示重點</p>
+                  <p class="mt-2 text-sm leading-6 text-slate-600">將 AI / 技術專案透過現場互動與影像視覺化，提升展場吸睛效果。</p>
+                </div>
+                <div class="rounded-3xl bg-slate-50 p-4 border border-slate-200">
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">設計目的</p>
+                  <p class="mt-2 text-sm leading-6 text-slate-600">呈現研究成果的實體舞台影像，讓觀眾感受科技與情境共鳴。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Blog / Notes</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">學術觀察與專欄筆記</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="reveal card-hover glass rounded-[1.75rem] p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-semibold tracking-[0.18em] text-brandBlue uppercase">Note 01 — AI 哲思</div>
+              <h3 class="mt-4 text-xl font-semibold text-slate-950 leading-8">大語言模型不只是計算，而是一種「語境對話」的放大鏡</h3>
+              <p class="mt-3 leading-7 text-slate-600">LLM 不單是概率預測，它的湧現效應更像是將人類長期心智外化的軌跡。我們不只要優化它的代碼，更需要理解它的認知本質。</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400">發佈於 2026/05</div>
+          </article>
+          <article class="reveal card-hover glass rounded-[1.75rem] p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-semibold tracking-[0.18em] text-brandPurple uppercase">Note 02 — 數據探勘</div>
+              <h3 class="mt-4 text-xl font-semibold text-slate-950 leading-8">好數據視覺化是「減法藝術」與「心智焦點」的共舞</h3>
+              <p class="mt-3 leading-7 text-slate-600">優秀的圖表從不在於塞入多少酷炫的三維圖，而是看作者如何配合人類注意力寬度，用高對比色彩和對比度將洞察「秒級」映入腦海。</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400">發佈於 2026/04</div>
+          </article>
+          <article class="reveal card-hover glass rounded-[1.75rem] p-6 flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-semibold tracking-[0.18em] text-brandMint uppercase">Note 03 — 跨界融合</div>
+              <h3 class="mt-4 text-xl font-semibold text-slate-950 leading-8">跨越設計與程式碼分水嶺：建立具備直覺的全端探索思維</h3>
+              <p class="mt-3 leading-7 text-slate-600">真正的科學家應該懂得設計美學，而優秀的藝術家也要學會用 Python 與 React 來具現化他們的巧思。在交叉路口上，才是靈感最豐盛之處。</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400">發佈於 2026/03</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+          <div>
+            <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Resume / Experience</div>
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">學術與成長經歷</h2>
+            <p class="mt-4 max-w-xl leading-7 text-slate-500">
+              這裡是我正在逐步鋪陳的學術實踐與經歷，記錄著我在 Berkeley 所選修的硬核課程、團隊研究以及技術沉澱。
+            </p>
+            <div class="mt-8 flex">
+              <a href="#contact" class="px-6 py-3 bg-slate-900 hover:bg-slate-950 text-white rounded-full text-xs font-semibold transition active:scale-95 shadow-sm">
+                索取 PDF 詳細履歷
+              </a>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="card-hover glass-strong rounded-[1.5rem] p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-slate-950">UC Berkeley (加州大學柏克萊分校)</h3>
+                <span class="rounded-full bg-brandBlue/10 px-2.5 py-1 text-xs font-semibold text-brandBlue">主修在學</span>
+              </div>
+              <div class="text-xs text-brandPurple font-medium mt-1">Cognitive Science & Data Science 雙主修</div>
+              <p class="mt-3 leading-7 text-slate-600 text-sm">積極投身於大腦認知模型、概率系統架構、大型統計學分析，致力將兩種世界級的研究學門有機結合。</p>
+            </div>
+
+            <div class="card-hover glass-strong rounded-[1.5rem] p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-slate-950">精選修讀課程 (Selected Coursework)</h3>
+                <span class="rounded-full bg-brandMint/10 px-2.5 py-1 text-xs font-semibold text-emerald-700">精通與實作</span>
+              </div>
+              <div class="text-xs text-brandPurple font-medium mt-1">CS61B, DATA 8, COGSCI 1, STATS</div>
+              <p class="mt-3 leading-7 text-slate-600 text-sm">於實踐中深度探索了經典資料結構與演算法（Introduction to Data Structures）、高效數據工程（Data Science Methodology）、人類推理心智原理等關鍵核心。</p>
+            </div>
+
+            <div class="card-hover glass-strong rounded-[1.5rem] p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-slate-950">持續進化的技術棧 (Skill Matrix)</h3>
+                <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">不斷成長</span>
+              </div>
+              <p class="mt-3 leading-7 text-slate-600 text-sm">
+                Python、Pandas/Numpy、JavaScript (ES6+)、Tailwind CSS、Figma 介面設計、資訊架構規劃、HCI 使用者意圖測試、AI 系統原型開發。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Solutions Section -->
+    <section id="solutions" class="py-12 sm:py-16 lg:py-24 bg-slate-50/50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10 text-center">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">核心產品與技術解決方案</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">智慧型服務與技術落地案例</h2>
+          <p class="mt-3 max-w-2xl mx-auto text-slate-500 leading-7">探索我們為行銷、保險與語音 AI 打造的三大解決方案。</p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-3">
+          <a href="https://courses.taiwanmds.com/product/information?p=02c0c7b9ec7b11f0b3480242ac110002" target="_blank" rel="noreferrer" class="card-hover glass rounded-[1.75rem] border border-slate-200 p-6 transition hover:-translate-y-1 hover:shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandPurple/15 text-brandBlue text-lg">
+              <i class="fa-solid fa-wave-square"></i>
+            </div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">Vibe Coding：行銷數據分析學習圈</h3>
+            <p class="mt-3 leading-7 text-slate-600">訂閱 Vibe Coding 行銷數據分析學習圈，跟著我們一同走入行銷數據分析與 vibe coding 自動化的世界。</p>
+          </a>
+
+          <a href="https://judgai.com/" target="_blank" rel="noreferrer" class="card-hover glass rounded-[1.75rem] border border-slate-200 p-6 transition hover:-translate-y-1 hover:shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandPurple/15 to-brandMint/15 text-brandPurple text-lg">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">保險機器人：當經驗成為奇點</h3>
+            <p class="mt-3 leading-7 text-slate-600">從經驗、法條到正確說明，奇點讓每位保險專業者擁有一位懂法的科技夥伴。</p>
+          </a>
+
+          <a href="https://judgai.com/saymind" target="_blank" rel="noreferrer" class="card-hover glass rounded-[1.75rem] border border-slate-200 p-6 transition hover:-translate-y-1 hover:shadow-soft">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandMint/15 to-brandBlue/15 text-brandMint text-lg">
+              <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">SayMind：一站式語音轉錄 AI 筆記</h3>
+            <p class="mt-3 leading-7 text-slate-600">使用 LangChain 搭建的 RAG 系統，可上傳 PDF 並進行精準問答。</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal glass-strong gradient-border rounded-[2.5rem] p-8 sm:p-10 lg:p-12">
+          <div class="grid gap-12 lg:grid-cols-[1fr_1fr]">
+            <div>
+              <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Contact</div>
+              <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">與我展開對話</h2>
+              <p class="mt-4 max-w-2xl leading-8 text-slate-600">
+                不論是 Berkeley 課堂的專題合作機會、有趣的數據探勘研究項目、或者是生成式 AI 的前沿介面開發，都歡迎您來信。
+              </p>
+              <p class="mt-3 max-w-2xl leading-8 text-slate-600">
+                本系統由學術沙盒機制防護，提交後會立即轉呈至 Ashley Liu 的個人信箱。
+              </p>
+
+              <!-- Dynamic Contact Details -->
+              <div class="mt-8 space-y-4">
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                  <span class="w-8 h-8 rounded-full bg-brandBlue/5 flex items-center justify-center text-brandBlue">📍</span>
+                  <span>加州大學柏克萊分校 (UC Berkeley, CA)</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600">
+                  <span class="w-8 h-8 rounded-full bg-brandPurple/5 flex items-center justify-center text-brandPurple">✉️</span>
+                  <span>ashley_liu@berkeley.edu</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Fully Completed Reactive Form -->
+            <form id="contactForm" class="space-y-4">
+              <div>
+                <label class="mb-2 block text-xs font-bold tracking-wider text-slate-500 uppercase">您的稱呼 (Name)</label>
+                <input id="formName" required type="text" placeholder="例：林先生 / Dr. Smith" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-slate-900 outline-none transition focus:border-brandBlue/40 focus:ring-4 focus:ring-brandBlue/10" />
+              </div>
+              <div>
+                <label class="mb-2 block text-xs font-bold tracking-wider text-slate-500 uppercase">電子信箱 (Email)</label>
+                <input id="formEmail" required type="email" placeholder="you@example.com" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-slate-900 outline-none transition focus:border-brandBlue/40 focus:ring-4 focus:ring-brandBlue/10" />
+              </div>
+              <div>
+                <label class="mb-2 block text-xs font-bold tracking-wider text-slate-500 uppercase">合作意圖 / 訊息內容 (Message)</label>
+                <textarea id="formMessage" required rows="4" placeholder="請填寫您想要探討的主題、合作概念或想對我說的話..." class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-slate-900 outline-none transition focus:border-brandBlue/40 focus:ring-4 focus:ring-brandBlue/10"></textarea>
+              </div>
+              <button type="submit" class="btn-premium inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-brandBlue/20 bg-gradient-to-r from-white to-slate-50 px-5 py-4 text-sm font-semibold text-slate-800 shadow-soft">
+                <span>發送訊息至 Berkeley 信箱</span>
+                <span class="rounded-full bg-brandMint/10 px-2.5 py-1 text-[10px] font-bold text-emerald-700 uppercase">Ready</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200/80 bg-slate-50/50 py-12">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center sm:flex sm:items-center sm:justify-between">
+      <div class="flex justify-center gap-4 text-sm text-slate-500">
+        <span class="font-semibold text-slate-800">Ashley Liu</span>
+        <span>|</span>
+        <span>Cognitive Science & Data Science</span>
+        <span>|</span>
+        <span>UC Berkeley</span>
+      </div>
+      <p class="mt-4 text-xs text-slate-400 sm:mt-0">
+        &copy; 2026 Ashley Liu. Designed & Built with pure intellectual curiosity.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts Logic -->
+  <script>
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 110 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      initParticles();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    class Particle {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.baseX = x;
+        this.baseY = y;
+        this.size = Math.random() * 2 + 1;
+        this.density = (Math.random() * 30) + 15;
+        this.color = Math.random() > 0.5 ? 'rgba(37, 99, 235, 0.25)' : 'rgba(124, 58, 237, 0.25)';
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      update() {
+        if (mouse.x !== null && mouse.y !== null) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.hypot(dx, dy);
+          if (distance < mouse.radius) {
+            let force = (mouse.radius - distance) / mouse.radius;
+            let directionX = dx / distance;
+            let directionY = dy / distance;
+            this.x -= directionX * force * this.density;
+            this.y -= directionY * force * this.density;
+          } else {
+            this.returnToBase();
+          }
+        } else {
+          this.returnToBase();
+        }
+      }
+
+      returnToBase() {
+        if (this.x !== this.baseX) {
+          let dx = this.x - this.baseX;
+          this.x -= dx / 15;
+        }
+        if (this.y !== this.baseY) {
+          let dy = this.y - this.baseY;
+          this.y -= dy / 15;
+        }
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      const densityMultiplier = Math.min(window.innerWidth / 1200, 1);
+      const numberOfParticles = Math.floor(65 * densityMultiplier);
+      for (let i = 0; i < numberOfParticles; i++) {
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        particles.push(new Particle(x, y));
+      }
+    }
+    initParticles();
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw connective lines between nearby particles
+      for (let a = 0; a < particles.length; a++) {
+        for (let b = a; b < particles.length; b++) {
+          let dx = particles[a].x - particles[b].x;
+          let dy = particles[a].y - particles[b].y;
+          let distance = Math.hypot(dx, dy);
+          if (distance < 150) {
+            let opacity = (1 - (distance / 150)) * 0.12;
+            ctx.strokeStyle = `rgba(37, 99, 235, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[a].x, particles[a].y);
+            ctx.lineTo(particles[b].x, particles[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].draw();
+        particles[i].update();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    const phrases = [
+      "Designing Intelligence",
+      "Bridging Mind & Machine",
+      "Decoding Complex Data Insights",
+      "Engineering Human-Centered AI"
+    ];
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let currentPhrase = "";
+    let isDeleting = false;
+    const typedEl = document.getElementById('typedHeadline');
+
+    function typeEffect() {
+      const fullPhrase = phrases[phraseIdx];
+      if (isDeleting) {
+        currentPhrase = fullPhrase.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        currentPhrase = fullPhrase.substring(0, charIdx + 1);
+        charIdx++;
+      }
+
+      typedEl.textContent = currentPhrase;
+
+      let typingSpeed = isDeleting ? 40 : 80;
+
+      if (!isDeleting && currentPhrase === fullPhrase) {
+        typingSpeed = 2200; // Hold full phrase longer
+        isDeleting = true;
+      } else if (isDeleting && currentPhrase === "") {
+        isDeleting = false;
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        typingSpeed = 300;
+      }
+
+      setTimeout(typeEffect, typingSpeed);
+    }
+    // Fire typing effect on load
+    setTimeout(typeEffect, 800);
+
+    // Mobile navigation toggler
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerPath = document.getElementById('hamburgerPath');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        hamburgerPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+      } else {
+        hamburgerPath.setAttribute('d', 'M18 6L6 18M6 6l12 12');
+      }
+    });
+
+    // Custom Toast Notification System
+    function showToast(title, message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'glass p-4 rounded-2xl shadow-lg border border-slate-200/80 transition-all duration-500 transform translate-y-2 opacity-0 pointer-events-auto flex gap-3 items-start';
+      
+      let badgeColor = 'bg-brandBlue';
+      let emoji = 'ℹ️';
+      if (type === 'success') {
+        badgeColor = 'bg-brandMint';
+        emoji = '✅';
+      } else if (type === 'error') {
+        badgeColor = 'bg-red-500';
+        emoji = '⚠️';
+      }
+
+      toast.innerHTML = `
+        <span class="text-lg">${emoji}</span>
+        <div>
+          <h4 class="font-bold text-xs text-slate-800 uppercase tracking-wider">${title}</h4>
+          <p class="text-sm text-slate-600 mt-1 leading-relaxed">${message}</p>
+        </div>
+      `;
+      container.appendChild(toast);
+      
+      // Animate entry
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 50);
+
+      // Dismiss timer
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => toast.remove(), 500);
+      }, 4000);
+    }
+
+    // Tab Switches logic
+    const tabStroopBtn = document.getElementById('tabStroopBtn');
+    const tabNNBtn = document.getElementById('tabNNBtn');
+    const stroopPanel = document.getElementById('stroopPanel');
+    const nnPanel = document.getElementById('nnPanel');
+
+    tabStroopBtn.addEventListener('click', () => {
+      stroopPanel.classList.remove('hidden');
+      nnPanel.classList.add('hidden');
+      tabStroopBtn.className = "px-6 py-2.5 font-semibold text-sm rounded-xl text-brandPurple bg-brandPurple/10 transition-all duration-300 mr-4 focus:outline-none";
+      tabNNBtn.className = "px-6 py-2.5 font-semibold text-sm rounded-xl text-slate-500 hover:text-slate-950 hover:bg-slate-100 transition-all duration-300 focus:outline-none";
+    });
+
+    tabNNBtn.addEventListener('click', () => {
+      nnPanel.classList.remove('hidden');
+      stroopPanel.classList.add('hidden');
+      tabNNBtn.className = "px-6 py-2.5 font-semibold text-sm rounded-xl text-brandPurple bg-brandPurple/10 transition-all duration-300 mr-4 focus:outline-none";
+      tabStroopBtn.className = "px-6 py-2.5 font-semibold text-sm rounded-xl text-slate-500 hover:text-slate-950 hover:bg-slate-100 transition-all duration-300 focus:outline-none";
+      setTimeout(recalcNNPaths, 150); // Recalc SVG paths on display
+    });
+
+    // Stroop Interactive Attention test logic
+    const colorsList = [
+      { name: '紅色', value: 'red', textStyle: 'text-red-500' },
+      { name: '藍色', value: 'blue', textStyle: 'text-blue-500' },
+      { name: '綠色', value: 'green', textStyle: 'text-emerald-500' },
+      { name: '紫色', value: 'purple', textStyle: 'text-purple-500' }
+    ];
+
+    let stroopActive = false;
+    let stroopRound = 1;
+    let totalRounds = 5;
+    let currentTargetColor = null;
+    let stroopStartTime = null;
+    let reactionTimes = [];
+    let gameTimerInterval = null;
+
+    const startStroopBtn = document.getElementById('startStroopBtn');
+    const restartStroopBtn = document.getElementById('restartStroopBtn');
+    const resetStroopBtn = document.getElementById('resetStroopBtn');
+    const stroopGameIntro = document.getElementById('stroopGameIntro');
+    const stroopGameActive = document.getElementById('stroopGameActive');
+    const stroopGameFinished = document.getElementById('stroopGameFinished');
+    const stroopTargetWord = document.getElementById('stroopTargetWord');
+    const stroopRoundLabel = document.getElementById('stroopRoundLabel');
+    const stroopTimer = document.getElementById('stroopTimer');
+    const avgReactionTimeEl = document.getElementById('avgReactionTime');
+    const stroopCountEl = document.getElementById('stroopCount');
+    const stroopResultSummary = document.getElementById('stroopResultSummary');
+    const stroopPerformanceBar = document.getElementById('stroopPerformanceBar');
+
+    function launchStroop() {
+      stroopRound = 1;
+      reactionTimes = [];
+      stroopGameIntro.classList.add('hidden');
+      stroopGameFinished.classList.add('hidden');
+      stroopGameActive.classList.remove('hidden');
+      triggerNextStroopRound();
+    }
+
+    startStroopBtn.addEventListener('click', launchStroop);
+    restartStroopBtn.addEventListener('click', launchStroop);
+
+    function triggerNextStroopRound() {
+      if (stroopRound > totalRounds) {
+        finishStroopTest();
+        return;
+      }
+
+      stroopRoundLabel.textContent = `${stroopRound}/${totalRounds}`;
+      
+      // Randomize cognitive conflict
+      const wordObj = colorsList[Math.floor(Math.random() * colorsList.length)];
+      const colorObj = colorsList[Math.floor(Math.random() * colorsList.length)];
+      
+      currentTargetColor = colorObj.value;
+      stroopTargetWord.textContent = wordObj.name;
+      
+      // Clear previous classes and style color
+      stroopTargetWord.className = "text-4xl sm:text-5xl font-extrabold tracking-wide py-6 select-none transition-all duration-300";
+      if (colorObj.value === 'red') stroopTargetWord.classList.add('text-red-500');
+      else if (colorObj.value === 'blue') stroopTargetWord.classList.add('text-blue-500');
+      else if (colorObj.value === 'green') stroopTargetWord.classList.add('text-emerald-500');
+      else if (colorObj.value === 'purple') stroopTargetWord.classList.add('text-purple-500');
+
+      stroopStartTime = performance.now();
+      
+      // Active display timer
+      clearInterval(gameTimerInterval);
+      gameTimerInterval = setInterval(() => {
+        const delta = (performance.now() - stroopStartTime) / 1000;
+        stroopTimer.textContent = `${delta.toFixed(2)}s`;
+      }, 50);
+    }
+
+    document.querySelectorAll('.stroopChoiceBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const selection = e.currentTarget.getAttribute('data-color');
+        const clickTime = performance.now();
+        const duration = clickTime - stroopStartTime;
+        
+        clearInterval(gameTimerInterval);
+
+        if (selection === currentTargetColor) {
+          reactionTimes.push(duration);
+          showToast('答對了！', `反應時間: ${duration.toFixed(0)} ms`, 'success');
+        } else {
+          reactionTimes.push(duration + 1200); // 1.2s penalty for wrong choices
+          showToast('答錯了 (罰秒計入)', `被認知干擾影響了！已添加懲罰計時。`, 'error');
+        }
+
+        stroopRound++;
+        triggerNextStroopRound();
+      });
+    });
+
+    function finishStroopTest() {
+      clearInterval(gameTimerInterval);
+      stroopGameActive.classList.add('hidden');
+      stroopGameFinished.classList.remove('hidden');
+
+      const avg = reactionTimes.reduce((sum, val) => sum + val, 0) / reactionTimes.length;
+      avgReactionTimeEl.textContent = `${avg.toFixed(0)} ms`;
+      stroopCountEl.textContent = `5 / 5`;
+
+      stroopResultSummary.innerHTML = `您的平均認知判斷延遲為 <b>${avg.toFixed(0)} 毫秒</b>。`;
+      
+      // Animate progress stats bar based on speed
+      let percentage = 100 - ((avg - 300) / 1500) * 100;
+      percentage = Math.max(10, Math.min(100, percentage));
+      stroopPerformanceBar.style.width = `${percentage}%`;
+    }
+
+    resetStroopBtn.addEventListener('click', () => {
+      avgReactionTimeEl.textContent = '-- ms';
+      stroopCountEl.textContent = `0 / 5`;
+      stroopGameActive.classList.add('hidden');
+      stroopGameFinished.classList.add('hidden');
+      stroopGameIntro.classList.remove('hidden');
+      showToast('數據已重置', '您的認知測試記錄已清空。', 'info');
+    });
+
+
+    // Neural Network dynamic SVG connection path calculator
+    function getCenterCoords(el) {
+      if (!el) return { x: 0, y: 0 };
+      const parentRect = document.getElementById('nnGraph').getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
+      return {
+        x: rect.left - parentRect.left + rect.width / 2,
+        y: rect.top - parentRect.top + rect.height / 2
+      };
+    }
+
+    function recalcNNPaths() {
+      if (document.getElementById('nnPanel').classList.contains('hidden')) return;
+
+      const in1 = getCenterCoords(document.getElementById('node_in1'));
+      const in2 = getCenterCoords(document.getElementById('node_in2'));
+      const h1 = getCenterCoords(document.getElementById('node_h1'));
+      const h2 = getCenterCoords(document.getElementById('node_h2'));
+      const out1 = getCenterCoords(document.getElementById('node_out1'));
+
+      // Draw SVG bezier paths
+      document.getElementById('path_in1_h1').setAttribute('d', `M ${in1.x} ${in1.y} Q ${(in1.x+h1.x)/2} ${(in1.y+h1.y)/2 - 10} ${h1.x} ${h1.y}`);
+      document.getElementById('path_in1_h2').setAttribute('d', `M ${in1.x} ${in1.y} Q ${(in1.x+h2.x)/2} ${(in1.y+h2.y)/2 + 10} ${h2.x} ${h2.y}`);
+      
+      document.getElementById('path_in2_h1').setAttribute('d', `M ${in2.x} ${in2.y} Q ${(in2.x+h1.x)/2} ${(in2.y+h1.y)/2 - 10} ${h1.x} ${h1.y}`);
+      document.getElementById('path_in2_h2').setAttribute('d', `M ${in2.x} ${in2.y} Q ${(in2.x+h2.x)/2} ${(in2.y+h2.y)/2 + 10} ${h2.x} ${h2.y}`);
+
+      document.getElementById('path_h1_out1').setAttribute('d', `M ${h1.x} ${h1.y} Q ${(h1.x+out1.x)/2} ${(h1.y+out1.y)/2 - 10} ${out1.x} ${out1.y}`);
+      document.getElementById('path_h2_out1').setAttribute('d', `M ${h2.x} ${h2.y} Q ${(h2.x+out1.x)/2} ${(h2.y+out1.y)/2 + 10} ${out1.x} ${out1.y}`);
+    }
+
+    window.addEventListener('resize', recalcNNPaths);
+
+    // Dynamic signal firing animations
+    function fireNeuralSignal(inputId) {
+      recalcNNPaths();
+      const pulseIn = inputId === 1 ? document.getElementById('pulseIn1') : document.getElementById('pulseIn2');
+      const startNode = inputId === 1 ? document.getElementById('node_in1') : document.getElementById('node_in2');
+      const h1Node = document.getElementById('node_h1');
+      const h2Node = document.getElementById('node_h2');
+      const outNode = document.getElementById('node_out1');
+      const outText = document.getElementById('nnOutputText');
+
+      // Light up starting node
+      startNode.classList.add('scale-110', 'brightness-125');
+      setTimeout(() => startNode.classList.remove('scale-110', 'brightness-125'), 300);
+
+      // Animate signal flow via CSS positioning (approximate path sequence)
+      const startCoords = getCenterCoords(startNode);
+      const h1Coords = getCenterCoords(h1Node);
+      const h2Coords = getCenterCoords(h2Node);
+      const outCoords = getCenterCoords(outNode);
+
+      pulseIn.style.left = `${startCoords.x - 6}px`;
+      pulseIn.style.top = `${startCoords.y - 6}px`;
+      pulseIn.classList.remove('hidden');
+
+      // Frame animation towards Hidden Layer 1 and Layer 2
+      let step = 0;
+      const totalSteps = 40;
+      const targetCoords = Math.random() > 0.5 ? h1Coords : h2Coords;
+      const targetNode = targetCoords === h1Coords ? h1Node : h2Node;
+
+      function stepSignal() {
+        if (step < totalSteps) {
+          const ratio = step / totalSteps;
+          const currentX = startCoords.x + (targetCoords.x - startCoords.x) * ratio;
+          const currentY = startCoords.y + (targetCoords.y - startCoords.y) * ratio;
+          pulseIn.style.left = `${currentX - 6}px`;
+          pulseIn.style.top = `${currentY - 6}px`;
+          step++;
+          requestAnimationFrame(stepSignal);
+        } else {
+          // Arrived at hidden layer node
+          pulseIn.classList.add('hidden');
+          targetNode.classList.add('bg-brandMint', 'scale-110');
+          setTimeout(() => targetNode.classList.remove('bg-brandMint', 'scale-110'), 250);
+
+          // Fire cascade to output layer
+          fireOutputCascade(targetCoords, outCoords, outNode, outText, inputId);
+        }
+      }
+      requestAnimationFrame(stepSignal);
+    }
+
+    function fireOutputCascade(fromCoords, outCoords, outNode, outText, inputId) {
+      const pulseOut = document.createElement('div');
+      pulseOut.className = 'absolute w-3.5 h-3.5 bg-brandMint rounded-full shadow-[0_0_10px_#10b981] z-20 pointer-events-none';
+      document.getElementById('nnPanel').querySelector('.relative').appendChild(pulseOut);
+
+      let step = 0;
+      const totalSteps = 30;
+
+      function stepSignal() {
+        if (step < totalSteps) {
+          const ratio = step / totalSteps;
+          const currentX = fromCoords.x + (outCoords.x - fromCoords.x) * ratio;
+          const currentY = fromCoords.y + (outCoords.y - fromCoords.y) * ratio;
+          pulseOut.style.left = `${currentX - 7}px`;
+          pulseOut.style.top = `${currentY - 7}px`;
+          step++;
+          requestAnimationFrame(stepSignal);
+        } else {
+          pulseOut.remove();
+          // Activate Output Node
+          outNode.classList.add('scale-110', 'border-brandMint');
+          setTimeout(() => outNode.classList.remove('scale-110', 'border-brandMint'), 400);
+
+          if (inputId === 1) {
+            outText.textContent = "人本設計";
+            outText.className = "text-[9px] text-brandBlue tracking-tighter font-extrabold animate-pulse";
+            showToast('感知轉譯成功', '模型已將「人因意圖」計算轉換為「人本設計原型」輸出。', 'success');
+          } else {
+            outText.textContent = "結構化洞察";
+            outText.className = "text-[9px] text-brandPurple tracking-tighter font-extrabold animate-pulse";
+            showToast('數據轉換成功', '模型已將「數據洪流」轉碼為「結構化商業洞察」輸出。', 'success');
+          }
+        }
+      }
+      requestAnimationFrame(stepSignal);
+    }
+
+    document.getElementById('triggerSignalBtn1').addEventListener('click', () => fireNeuralSignal(1));
+    document.getElementById('triggerSignalBtn2').addEventListener('click', () => fireNeuralSignal(2));
+
+
+    // Scroll reveal logic using IntersectionObserver
+    const revealElements = document.querySelectorAll('.reveal');
+    const observerOptions = {
+      root: null,
+      threshold: 0.1,
+      rootMargin: "0px 0px -40px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Trigger only once
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Dynamic stats percentage ticker simulation
+    setInterval(() => {
+      const flowRate = document.getElementById('flowRate');
+      if (flowRate) {
+        let current = parseInt(flowRate.textContent);
+        let next = current + (Math.random() > 0.5 ? 1 : -1);
+        next = Math.max(82, Math.min(97, next));
+        flowRate.textContent = `${next}%`;
+      }
+    }, 4000);
+
+    // Beautiful secure form submit handler (Strictly avoids alerts)
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('formName').value;
+      const email = document.getElementById('formEmail').value;
+      const message = document.getElementById('formMessage').value;
+
+      // Simulate network request
+      showToast('訊息準備發送', `正在安全封裝 ${name} 的訊息...`, 'info');
+
+      setTimeout(() => {
+        showToast('發送成功！', `您好 ${name}，您的訊息已成功轉呈至 Ashley 的信箱。`, 'success');
+        contactForm.reset();
+      }, 1500);
+    });
+
+    // Close menu when navigation happens on mobile
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        hamburgerPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+      });
+    });
+
+  </script>
+</body>
+</html>

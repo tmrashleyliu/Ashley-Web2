@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Designing Intelligence — Personal Brand</title>
+  <meta name="description" content="A premium one-page personal brand website for a UC Berkeley student exploring AI, cognition, data science, and creative technology." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandBlue: '#2563eb',
+            brandPurple: '#7c3aed',
+            brandMint: '#10b981',
+          },
+          boxShadow: {
+            soft: '0 20px 60px rgba(37, 99, 235, 0.10)',
+            glow: '0 0 0 1px rgba(37, 99, 235, 0.18), 0 12px 40px rgba(124, 58, 237, 0.12)',
+          },
+          keyframes: {
+            floaty: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: '0.35' },
+              '50%': { opacity: '0.75' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '0% 50%' },
+              '100%': { backgroundPosition: '200% 50%' },
+            },
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(22px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+          animation: {
+            floaty: 'floaty 7s ease-in-out infinite',
+            pulseSoft: 'pulseSoft 5s ease-in-out infinite',
+            shimmer: 'shimmer 10s linear infinite',
+            fadeUp: 'fadeUp 0.9s ease forwards',
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #0f172a;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.08), transparent 24%),
+        radial-gradient(circle at 85% 10%, rgba(124, 58, 237, 0.08), transparent 22%),
+        radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.08), transparent 20%),
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 40%, #ffffff 100%);
+      overflow-x: hidden;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.03em;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      box-shadow: 0 18px 60px rgba(15, 23, 42, 0.05);
+    }
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(148, 163, 184, 0.26);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+    }
+    .gradient-border {
+      position: relative;
+      isolation: isolate;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(37,99,235,0.85), rgba(124,58,237,0.75), rgba(16,185,129,0.65));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .soft-grid {
+      background-image:
+        linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 72%);
+    }
+    .line-flow {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.18) 50%, transparent 100%);
+      background-size: 200% 100%;
+      animation: shimmer 11s linear infinite;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 1.5px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed, #10b981);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+    .card-hover {
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 50px rgba(37, 99, 235, 0.12);
+      border-color: rgba(37, 99, 235, 0.25);
+    }
+    .btn-premium {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+    .btn-premium:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(16,185,129,0.28), 0 16px 38px rgba(16,185,129,0.14), 0 0 28px rgba(16,185,129,0.12);
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+    .typing-cursor {
+      display: inline-block;
+      width: 1px;
+      height: 1.08em;
+      background: linear-gradient(180deg, #2563eb, #7c3aed);
+      vertical-align: -0.18em;
+      margin-left: 4px;
+      animation: pulseSoft 1s ease-in-out infinite;
+    }
+    .number-pill {
+      background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(124,58,237,0.10));
+      border: 1px solid rgba(37,99,235,0.12);
+    }
+    #particlesCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.75;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-brandBlue/20 selection:text-slate-900">
+  <!-- Background Canvas -->
+  <div class="fixed inset-0 -z-20 overflow-hidden">
+    <div class="absolute inset-0 soft-grid opacity-60"></div>
+    <div class="line-flow"></div>
+    <div class="absolute -top-32 -left-24 h-80 w-80 rounded-full bg-brandBlue/10 blur-3xl animate-floaty"></div>
+    <div class="absolute top-28 right-[-4rem] h-96 w-96 rounded-full bg-brandPurple/10 blur-3xl animate-floaty" style="animation-delay: -2.5s;"></div>
+    <div class="absolute bottom-[-5rem] left-1/3 h-96 w-96 rounded-full bg-brandMint/10 blur-3xl animate-floaty" style="animation-delay: -4s;"></div>
+    <canvas id="particlesCanvas"></canvas>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/75 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="#home" class="group flex items-center gap-3">
+        <div class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-brandBlue to-brandPurple text-white shadow-soft">
+          <span class="text-sm font-bold">A</span>
+        </div>
+        <div>
+          <div class="text-sm font-semibold tracking-[0.24em] text-slate-500 uppercase">Ashley Liu</div>
+          <div class="text-xs text-slate-400">AI • Cognition • Data Science</div>
+        </div>
+      </a>
+
+      <nav class="hidden items-center gap-8 lg:flex">
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#home">Home</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#about">About Me</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#services">Services</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#projects">Projects</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#blog">Blog / Notes</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#resume">Resume</a>
+        <a class="nav-link text-sm font-medium text-slate-600 hover:text-slate-950" href="#contact">Contact</a>
+      </nav>
+
+      <button id="menuBtn" class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white/80 text-slate-700 shadow-sm">
+        <span class="sr-only">Open menu</span>
+        <svg id="menuIcon" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="hidden border-t border-slate-200/70 bg-white/95 lg:hidden">
+      <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div class="grid gap-3 text-sm font-medium text-slate-700">
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#home">Home</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#about">About Me</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#services">Services</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#projects">Projects</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#blog">Blog / Notes</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#resume">Resume</a>
+          <a class="rounded-xl px-3 py-2 hover:bg-slate-100" href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative">
+    <!-- Hero -->
+    <section id="home" class="relative overflow-hidden">
+      <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28">
+        <div class="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="reveal">
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-brandBlue/15 bg-white/80 px-4 py-2 text-xs font-semibold tracking-[0.28em] text-slate-500 uppercase shadow-sm">
+              <span class="h-2 w-2 rounded-full bg-brandMint shadow-[0_0_18px_rgba(16,185,129,0.6)]"></span>
+              Premium Student Personal Brand
+            </div>
+
+            <div class="space-y-6">
+              <h1 class="hero-title text-5xl font-semibold leading-[1.02] text-slate-950 sm:text-6xl lg:text-7xl">
+                <span id="typedHeadline"></span><span class="typing-cursor"></span>
+              </h1>
+              <p class="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+                When data meets design, it becomes intuition. When cognition meets AI, it becomes possibility.
+              </p>
+              <p class="max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">
+                一位來自 UC Berkeley 的學生，正在把 Cognitive Science、Data Science 與創意科技連成一條清楚的路徑：從理解人、分析資料，到設計更自然的數位體驗。
+              </p>
+            </div>
+
+            <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a href="#contact" class="btn-premium inline-flex items-center justify-center gap-3 rounded-full border border-brandBlue/20 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-soft">
+                <span class="inline-flex h-2.5 w-2.5 rounded-full bg-brandMint"></span>
+                Status: Ready to Connect
+              </a>
+              <a href="#projects" class="btn-premium inline-flex items-center justify-center rounded-full border border-slate-200 bg-gradient-to-r from-white to-slate-50 px-6 py-3.5 text-sm font-semibold text-brandBlue shadow-sm">
+                Explore Projects
+                <svg class="ml-2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div class="mt-10 grid max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4">
+              <div class="glass rounded-3xl p-4">
+                <div class="text-2xl font-bold text-slate-950">AI</div>
+                <div class="mt-1 text-xs text-slate-500">探索與應用</div>
+              </div>
+              <div class="glass rounded-3xl p-4">
+                <div class="text-2xl font-bold text-slate-950">DS</div>
+                <div class="mt-1 text-xs text-slate-500">資料分析</div>
+              </div>
+              <div class="glass rounded-3xl p-4">
+                <div class="text-2xl font-bold text-slate-950">CX</div>
+                <div class="mt-1 text-xs text-slate-500">人機互動</div>
+              </div>
+              <div class="glass rounded-3xl p-4">
+                <div class="text-2xl font-bold text-slate-950">UI</div>
+                <div class="mt-1 text-xs text-slate-500">創意呈現</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reveal relative">
+            <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-brandBlue/10 via-white to-brandPurple/10 blur-2xl"></div>
+            <div class="relative glass-strong gradient-border rounded-[2rem] p-6 sm:p-8">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs font-semibold tracking-[0.24em] text-slate-400 uppercase">Live Identity</div>
+                  <div class="mt-1 text-lg font-semibold text-slate-950">Elegant AI Tech</div>
+                </div>
+                <div class="rounded-full border border-brandMint/20 bg-brandMint/10 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  Online
+                </div>
+              </div>
+
+              <div class="mt-6 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5">
+                <div class="flex items-center justify-between text-xs text-slate-400">
+                  <span>Signal / Insight / Design</span>
+                  <span>UC Berkeley</span>
+                </div>
+
+                <div class="mt-5 grid gap-4 sm:grid-cols-2">
+                  <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                    <div class="text-xs font-semibold tracking-[0.18em] text-brandBlue uppercase">Focus</div>
+                    <div class="mt-2 text-sm leading-6 text-slate-600">把抽象的模型、資料與觀察，轉成更容易理解、也更具設計感的內容與介面。</div>
+                  </div>
+                  <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+                    <div class="text-xs font-semibold tracking-[0.18em] text-brandPurple uppercase">Approach</div>
+                    <div class="mt-2 text-sm leading-6 text-slate-600">以學生的真實好奇心出發，搭配清楚的結構、視覺化與原型思考。</div>
+                  </div>
+                </div>
+
+                <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+                  <div class="mb-3 flex items-center justify-between text-xs text-slate-400">
+                    <span>Data Flow</span>
+                    <span>Adaptive Mindset</span>
+                  </div>
+                  <div class="space-y-3">
+                    <div class="h-2 rounded-full bg-slate-100">
+                      <div class="h-2 w-[82%] rounded-full bg-gradient-to-r from-brandBlue via-brandPurple to-brandMint"></div>
+                    </div>
+                    <div class="h-2 rounded-full bg-slate-100">
+                      <div class="h-2 w-[67%] rounded-full bg-gradient-to-r from-brandBlue via-brandPurple to-brandMint"></div>
+                    </div>
+                    <div class="h-2 rounded-full bg-slate-100">
+                      <div class="h-2 w-[91%] rounded-full bg-gradient-to-r from-brandBlue via-brandPurple to-brandMint"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-xs text-slate-400">Identity</div>
+                  <div class="mt-1 font-semibold text-slate-900">Student Builder</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-xs text-slate-400">Style</div>
+                  <div class="mt-1 font-semibold text-slate-900">Clean Futurism</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-xs text-slate-400">Energy</div>
+                  <div class="mt-1 font-semibold text-slate-900">Quiet Precision</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+          <div class="space-y-4">
+            <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">About Me</div>
+            <h2 class="text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">關於我</h2>
+            <p class="text-slate-500 leading-7">一段更完整、但仍保留學生真實感的介紹。</p>
+          </div>
+          <div class="glass-strong rounded-[2rem] p-7 sm:p-9">
+            <p class="text-base leading-8 text-slate-600 sm:text-lg">
+              我目前就讀於 UC Berkeley，主修 Cognitive Science 與 Data Science。對我來說，學習不只是吸收知識，而是持續理解「人如何思考」與「資料如何說話」。在課堂上，我接觸 Introduction to Data Structure、Data Science 與 Cognitive Science，也在這些領域之間尋找彼此連結的方式。
+              我特別關注人工智慧、資料分析、人機互動與創意科技，因為這些工具不只是技術，更是一種重新設計體驗的方法。
+              我喜歡把複雜的概念整理成清楚的結構，將抽象的問題轉成可以視覺化、可以互動、也可以被真正使用的作品。這讓我在學習與創作之間找到平衡：既保留探索的好奇心，也維持對細節與品質的要求。
+              這個網站是我個人品牌的起點，記錄我正在建立的能力、觀點與作品，也希望未來能成為一個能夠被信任、持續進化的創作空間。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10 flex items-end justify-between gap-6">
+          <div>
+            <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Services</div>
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">可展示的能力與方向</h2>
+          </div>
+          <p class="hidden max-w-xl text-sm leading-7 text-slate-500 md:block">
+            不走過度商業化路線，而是以「可實作、可展示、可延伸」為核心。
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandPurple/15 text-brandBlue">AI</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">AI 入門顧問與應用展示</h3>
+            <p class="mt-3 leading-7 text-slate-600">以清楚、友善的方式介紹 AI 概念、應用情境與入門思路，適合個人品牌或學習展示。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandMint/15 text-brandPurple">Chat</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">客製化 Chatbot 概念設計</h3>
+            <p class="mt-3 leading-7 text-slate-600">從使用者需求、對話流程到介面呈現，規劃具備品牌感與實用性的聊天機器人概念。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandPurple/15 to-brandMint/15 text-brandMint">Data</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">資料分析與視覺化</h3>
+            <p class="mt-3 leading-7 text-slate-600">把資料整理成簡潔視覺，讓趨勢、分佈與洞察更容易理解，也更適合簡報與作品集。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandBlue/15 to-brandPurple/15 text-brandBlue">Art</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">AI 與設計輔助創作</h3>
+            <p class="mt-3 leading-7 text-slate-600">結合生成式工具、版面思維與美感判斷，形成更高效率的創作流程。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandMint/15 to-brandBlue/15 text-brandMint">Lab</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">學習型專案與原型製作</h3>
+            <p class="mt-3 leading-7 text-slate-600">適合課堂專案、個人探索與概念驗證，重視結構、可讀性與展示效果。</p>
+          </div>
+          <div class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brandPurple/15 to-brandBlue/15 text-brandPurple">Web</div>
+            <h3 class="mt-5 text-xl font-semibold text-slate-950">小型網站／作品集設計</h3>
+            <p class="mt-3 leading-7 text-slate-600">以簡潔、現代、具品牌感的方式建立作品展示頁、個人首頁或活動頁面。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Projects / Portfolio</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">作品集排版建議</h2>
+          <p class="mt-3 max-w-2xl text-slate-500 leading-7">以 3 個主視覺案例作為首頁展示，搭配簡短說明，讓訪客快速理解你的能力範圍。</p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-12">
+          <article class="reveal lg:col-span-7 card-hover glass-strong rounded-[2rem] p-7 sm:p-8">
+            <div class="flex items-center justify-between">
+              <span class="rounded-full bg-brandBlue/10 px-3 py-1 text-xs font-semibold text-brandBlue">01</span>
+              <span class="text-xs font-medium text-slate-400">Featured Case</span>
+            </div>
+            <h3 class="mt-5 text-2xl font-semibold text-slate-950">AI x Human-Centered Interface</h3>
+            <p class="mt-4 max-w-2xl leading-7 text-slate-600">一個將 AI 概念、使用者需求與極簡介面結合的互動原型。重點不是「功能很多」，而是把體驗做得清楚、自然、可被信任。</p>
+            <div class="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
+              <span class="rounded-full border border-slate-200 bg-white px-3 py-2">UI System</span>
+              <span class="rounded-full border border-slate-200 bg-white px-3 py-2">Prototype</span>
+              <span class="rounded-full border border-slate-200 bg-white px-3 py-2">User Flow</span>
+            </div>
+            <div class="mt-7 rounded-[1.5rem] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-5">
+              <div class="grid gap-4 md:grid-cols-3">
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-sm font-semibold text-slate-900">Problem</div>
+                  <div class="mt-2 text-sm leading-6 text-slate-500">複雜資訊難以被快速理解。</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-sm font-semibold text-slate-900">Solution</div>
+                  <div class="mt-2 text-sm leading-6 text-slate-500">用結構化介面與視覺層次整理資訊。</div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 shadow-sm border border-slate-200">
+                  <div class="text-sm font-semibold text-slate-900">Impact</div>
+                  <div class="mt-2 text-sm leading-6 text-slate-500">讓概念更容易展示與交流。</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <div class="reveal lg:col-span-5 space-y-6">
+            <article class="card-hover glass rounded-[2rem] p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-brandMint/10 px-3 py-1 text-xs font-semibold text-emerald-700">02</span>
+                <span class="text-xs text-slate-400">Visualization</span>
+              </div>
+              <h3 class="mt-5 text-xl font-semibold text-slate-950">Data Story Dashboard</h3>
+              <p class="mt-3 leading-7 text-slate-600">以簡潔圖表與文字註解，呈現資料中的節奏、差異與趨勢。</p>
+            </article>
+            <article class="card-hover glass rounded-[2rem] p-6">
+              <div class="flex items-center justify-between">
+                <span class="rounded-full bg-brandPurple/10 px-3 py-1 text-xs font-semibold text-brandPurple">03</span>
+                <span class="text-xs text-slate-400">Creative Web</span>
+              </div>
+              <h3 class="mt-5 text-xl font-semibold text-slate-950">Personal Brand Microsite</h3>
+              <p class="mt-3 leading-7 text-slate-600">為學習、展示與分享而設計的單頁式個人首頁。</p>
+            </article>
+            <article class="card-hover glass rounded-[2rem] p-6 border border-dashed border-slate-300/80">
+              <div class="text-xs font-semibold tracking-[0.22em] text-slate-400 uppercase">Future Slot</div>
+              <h3 class="mt-5 text-xl font-semibold text-slate-950">New Case Study</h3>
+              <p class="mt-3 leading-7 text-slate-600">這裡可以放你未來的課堂專題、合作作品或個人實驗。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-10">
+          <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Blog / Notes</div>
+          <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">筆記與觀點</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-3">
+          <article class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="text-xs font-semibold tracking-[0.18em] text-brandBlue uppercase">Note 01</div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-950">我如何理解 AI</h3>
+            <p class="mt-3 leading-7 text-slate-600">AI 不是答案本身，而是一種放大觀察、整理訊號與幫助決策的工具。</p>
+          </article>
+          <article class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="text-xs font-semibold tracking-[0.18em] text-brandPurple uppercase">Note 02</div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-950">資料視覺化的重點</h3>
+            <p class="mt-3 leading-7 text-slate-600">好的視覺化不是更複雜，而是讓人更快抓住重點、比較差異與理解脈絡。</p>
+          </article>
+          <article class="reveal card-hover glass rounded-[1.75rem] p-6">
+            <div class="text-xs font-semibold tracking-[0.18em] text-brandMint uppercase">Note 03</div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-950">設計與程式的交界</h3>
+            <p class="mt-3 leading-7 text-slate-600">我喜歡在設計與工程之間切換，因為真正好的作品通常來自兩者的協作。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume -->
+    <section id="resume" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal grid gap-8 lg:grid-cols-[1fr_1fr]">
+          <div>
+            <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Resume / Experience</div>
+            <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">履歷與經歷</h2>
+            <p class="mt-4 max-w-xl leading-7 text-slate-500">這一區可放課堂、專案、活動與技能的精簡摘要，讓頁面兼具作品集與個人簡歷功能。</p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="card-hover glass-strong rounded-[1.5rem] p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-slate-950">UC Berkeley — Cognitive Science & Data Science</h3>
+                <span class="text-xs font-semibold text-slate-400">Current</span>
+              </div>
+              <p class="mt-3 leading-7 text-slate-600">持續學習認知、資料、資訊結構與 AI 應用，建立跨領域思考能力。</p>
+            </div>
+            <div class="card-hover glass-strong rounded-[1.5rem] p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-slate-950">Selected Coursework</h3>
+                <span class="text-xs font-semibold text-slate-400">Learning</span>
+              </div>
+              <p class="mt-3 leading-7 text-slate-600">Introduction to Data Structure、Data Science、Cognitive Science、以及相關基礎課程。</p>
+            </div>
+            <div class="card-hover glass-strong rounded-[1.5rem] p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-lg font-semibold text-slate-950">Skill Direction</h3>
+                <span class="text-xs font-semibold text-slate-400">Growing</span>
+              </div>
+              <p class="mt-3 leading-7 text-slate-600">Python 基礎、資料分析、介面設計、資訊整理、簡報表達、原型製作與創意發想。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-12 sm:py-16 lg:py-24">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal glass-strong gradient-border rounded-[2rem] p-8 sm:p-10 lg:p-12">
+          <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <div class="inline-flex rounded-full number-pill px-4 py-2 text-xs font-semibold tracking-[0.28em] text-brandBlue uppercase">Contact</div>
+              <h2 class="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">聯絡我</h2>
+              <p class="mt-4 max-w-2xl leading-8 text-slate-600">
+                如果你想合作課堂專案、設計作品、資料視覺化或 AI 相關的概念展示，可以從這裡開始聯絡。這個區塊保留乾淨、直接、可信賴的感覺。
+              </p>
+            </div>
+
+            <form class="space-y-4">
+              <div>
+                <label class="mb-2 block text-sm font-medium text-slate-600">Name</label>
+                <input type="text" placeholder="Your name" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-slate-900 outline-none transition focus:border-brandBlue/40 focus:ring-4 focus:ring-brandBlue/10" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-medium text-slate-600">Email</label>
+                <input type="email" placeholder="you@example.com" class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-slate-900 outline-none transition focus:border-brandBlue/40 focus:ring-4 focus:ring-brandBlue/10" />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-medium text-slate-600">Message</label>
+                <textarea rows="4" placeholder="Tell me about your idea..." class="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-slate-900 outline-none transition focus:border-brandBlue/40 focus:ring-4 focus:ring-brandBlue/10"></textarea>
+              </div>
+              <button type="button" class="btn-premium inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-brandBlue/20 bg-gradient-to-r from-white to-slate-50 px-5 py-3.5 text-sm font-semibold text-slate-800 shadow-soft">
+                Send Message
+                <span class="rounded-full bg-brandMint/10 px-2.5 py-1 text-xs font-semibold text-emerald-700">Status: Ready to Connect</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200/70 bg-white/70 py-8 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm text-slate-500 sm:px-6 lg:px-8 md:flex-row md:items-center md:justify-between">
+      <p>© 2026 Ashley Liu. Designed with clarity, curiosity, and quiet confidence.</p>
+      <p class="text-slate-400">Elegant AI Tech · Clean Futurism · Premium SaaS Aesthetic</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    let menuOpen = false;
+
+    menuBtn?.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      menuIcon.innerHTML = menuOpen
+        ? '<path d="M6 6l12 12M18 6L6 18"/>'
+        : '<path d="M4 6h16M4 12h16M4 18h16"/>';
+    });
+
+    // Close mobile menu after clicking a link
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.add('hidden');
+        menuIcon.innerHTML = '<path d="M4 6h16M4 12h16M4 18h16"/>';
+      });
+    });
+
+    // Typing effect
+    const typedTarget = document.getElementById('typedHeadline');
+    const headlineText = 'Designing Intelligence at the Intersection of AI, Cognition, and Creativity.';
+    let idx = 0;
+    function typeHeadline() {
+      if (!typedTarget) return;
+      if (idx <= headlineText.length) {
+        typedTarget.textContent = headlineText.slice(0, idx);
+        idx += 1;
+        setTimeout(typeHeadline, idx < 18 ? 55 : 22);
+      }
+    }
+    window.addEventListener('load', () => {
+      setTimeout(typeHeadline, 350);
+    });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.14 });
+    revealEls.forEach(el => io.observe(el));
+
+    // Particle network background
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles;
+
+    function resize() {
+      w = canvas.width = window.innerWidth * devicePixelRatio;
+      h = canvas.height = window.innerHeight * devicePixelRatio;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      initParticles();
+    }
+
+    function initParticles() {
+      const count = Math.min(72, Math.floor(window.innerWidth / 18));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: (Math.random() * 1.6 + 0.8) * devicePixelRatio,
+        vx: (Math.random() - 0.5) * 0.22 * devicePixelRatio,
+        vy: (Math.random() - 0.5) * 0.18 * devicePixelRatio,
+        hue: Math.random() < 0.34 ? 'blue' : (Math.random() < 0.67 ? 'purple' : 'mint')
+      }));
+    }
+
+    function draw() {
+      if (!ctx || !particles) return;
+      ctx.clearRect(0, 0, w, h);
+
+      // connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i];
+          const b = particles[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150 * devicePixelRatio) {
+            const alpha = 1 - dist / (150 * devicePixelRatio);
+            const grad = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+            grad.addColorStop(0, `rgba(37,99,235,${alpha * 0.18})`);
+            grad.addColorStop(0.5, `rgba(124,58,237,${alpha * 0.16})`);
+            grad.addColorStop(1, `rgba(16,185,129,${alpha * 0.16})`);
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 1 * devicePixelRatio;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // nodes
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+
+        const colors = {
+          blue: 'rgba(37,99,235,0.8)',
+          purple: 'rgba(124,58,237,0.75)',
+          mint: 'rgba(16,185,129,0.72)'
+        };
+        ctx.fillStyle = colors[p.hue];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+
+    // Subtle button hover text effect
+    document.querySelectorAll('.btn-premium').forEach(btn => {
+      btn.addEventListener('mouseenter', () => btn.setAttribute('data-hover', 'true'));
+      btn.addEventListener('mouseleave', () => btn.removeAttribute('data-hover'));
+    });
+  </script>
+</body>
+</html>
